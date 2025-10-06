@@ -1,0 +1,231 @@
+/* --- 1. IMPORTAÇÃO DA FONTE E VARIÁVEIS DE DESIGN --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --cor-fundo: #0a0a10;
+    --cor-fundo-secundaria: #1a1a2e;
+    --cor-borda: #2a2a4e;
+    --cor-texto-principal: #f0f0f0;
+    --cor-texto-secundario: #a0a0c0;
+    --cor-destaque-principal: #4f46e5; /* Indigo */
+    --cor-destaque-secundario: #7e22ce; /* Violet */
+}
+
+/* --- 2. ESTILOS GERAIS E ANIMAÇÃO DE ENTRADA --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Evita que o header cubra o título da seção */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+    line-height: 1.7;
+}
+
+/* Animação que usaremos com JavaScript */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 { color: #ffffff; }
+h1 { font-size: 3.5rem; font-weight: 700; }
+h2 { 
+    font-size: 2.5rem; 
+    font-weight: 600; 
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+/* Linha decorativa abaixo do H2 */
+h2::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--cor-destaque-principal), var(--cor-destaque-secundario));
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    border-radius: 2px;
+}
+h3 { font-size: 1.6rem; font-weight: 600; }
+
+a { color: var(--cor-destaque-principal); text-decoration: none; }
+
+/* --- 3. CABEÇALHO E NAVEGAÇÃO COM EFEITO DE VIDRO --- */
+header {
+    background-color: rgba(10, 10, 16, 0.7);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 1.2rem 0;
+}
+
+nav ul li a {
+    color: var(--cor-texto-principal);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, var(--cor-destaque-principal), var(--cor-destaque-secundario));
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover { color: #fff; }
+nav ul li a:hover::after { width: 100%; }
+
+/* --- 4. SEÇÃO HOME (INÍCIO) COM GRADIENTE --- */
+#home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(rgba(10, 10, 16, 0.9), rgba(10, 10, 16, 1)), url('https://via.placeholder.com/1920x1080/0a0a10/1a1a2e.png?text=') no-repeat center center/cover;
+}
+
+.home-content .slogan {
+    font-size: 1.2rem;
+    color: var(--cor-texto-secundario);
+    max-width: 700px;
+    margin: 1.5rem auto 2.5rem;
+    font-weight: 300;
+}
+
+.cta-button {
+    background: linear-gradient(90deg, var(--cor-destaque-principal), var(--cor-destaque-secundario));
+    color: #ffffff;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.25);
+}
+
+/* --- 5. SEÇÃO DE PROJETOS MODERNIZADA --- */
+.projetos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+.projeto-card {
+    background-color: var(--cor-fundo-secundaria);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--cor-borda);
+    display: flex;
+    flex-direction: column;
+}
+
+.projeto-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.projeto-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.projeto-card:hover img {
+    transform: scale(1.05);
+}
+.card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.card-content h3 { margin-bottom: 0.5rem; }
+.card-content .descricao-projeto { color: var(--cor-texto-secundario); font-size: 0.95rem; flex-grow: 1; }
+.card-content .tecnologias { margin: 1rem 0; font-weight: 600; font-size: 0.9rem; }
+.projeto-links { margin-top: auto; }
+
+/* --- 6. HABILIDADES COMO TAGS --- */
+#habilidades .habilidades-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 900px;
+    margin: 3rem auto 0;
+}
+#habilidades ul { list-style: none; }
+#habilidades li {
+    background-color: var(--cor-fundo-secundaria);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-secundario);
+    padding: 0.5rem 1rem;
+    margin: 0.3rem;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+#habilidades li:hover {
+    color: #fff;
+    background-color: var(--cor-destaque-principal);
+    transform: translateY(-2px);
+}
+
+/* --- 7. SEÇÃO DE CONTATO E RODAPÉ --- */
+#contato { text-align: center; }
+#contato p { max-width: 600px; margin: 0 auto 2rem; }
+#contato ul { list-style: none; display: flex; justify-content: center; gap: 2rem; }
+#contato a { font-weight: 600; font-size: 1.1rem; }
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: #050508;
+    color: var(--cor-texto-secundario);
+    font-size: 0.9rem;
+}
